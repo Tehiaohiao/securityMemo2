@@ -81,13 +81,13 @@ class AccountViewController: UIViewController {
                         loc.name = address
                         loc.coordinate = Coordinates
                         i.location = loc
-                        //i.picture = img
-                        
-                        let key = Utilities.convertCoordinateToKey(coord: i.location!.coordinate!)
-                        if MockDatabase.database[key] == nil {
-                            MockDatabase.database[key] = []
-                        }
-                        MockDatabase.database[key]?.append(i.makeCopy())
+                        i.picture = nil
+                        self.incidents.append(i)
+//                        let key = Utilities.convertCoordinateToKey(coord: i.location!.coordinate!)
+//                        if MockDatabase.database[key] == nil {
+//                            MockDatabase.database[key] = []
+//                        }
+//                        MockDatabase.database[key]?.append(i.makeCopy())
                         
                     }
                 }
