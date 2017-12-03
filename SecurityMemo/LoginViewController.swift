@@ -25,10 +25,14 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         errorLabel.alpha = 0
+        usernameTF.text = ""
+        passwordTF.text = ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
         errorLabel.alpha = 0
+        usernameTF.text = ""
+        passwordTF.text = ""
     }
 
     override func didReceiveMemoryWarning() {

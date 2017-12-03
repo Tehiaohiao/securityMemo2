@@ -30,6 +30,13 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logoutButtonPressed(_ sender: UIBarButtonItem) {
+        
+        print("logged out")
+        
+        self.navigationController?.popViewController(animated: true)
+        
+    }
 
     /*
     // MARK: - Navigation
