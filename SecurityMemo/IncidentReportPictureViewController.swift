@@ -9,14 +9,14 @@
 import UIKit
 import Firebase
 class IncidentReportPictureViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     weak var delegate: IncidentReportInfoViewController!
     @IBOutlet weak var imageView: UIImageView!
-    var ref: DatabaseReference!
+    var databaseRef: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ref = Database.database().reference()
+        self.databaseRef = Database.database().reference().child("Incidents") // 　database reference to incidents
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,22 +39,26 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
             }
             MockDatabase.database[key]?.append(self.delegate.incident.makeCopy())
             
-            //-----------------------------------------------------------------
-//            self.ref.child("Location2").child("summary").setValue(self.delegate.incident.summary!)
-//            self.ref.child("Location2").child("time").setValue(Utilities.dateCompToString(date: self.delegate.incident.dateTime!))
-//            self.ref.child("Location").child("time").setValue(self.delegate.incident.Time!)
-//            self.ref.child("Location2").child("des").setValue(self.delegate.incident.description!)
             
+            // create a storage reference and call upload
+            //get a inciddent key with location
             
-            
-            
-            //clear user input
-            self.clear()
-
-            // go to map view
-            tabBarController?.selectedIndex = 0
-            _ = navigationController?.popViewController(animated: true)
-            return
+            //get a time key with incident datetime
+            let dateTimeKey = Utilities.dateCompToString(date: self.delegate.incident.dateTime)
+            let randomNum = arc4random()
+            print("userA\(dateTimeKey)\(randomNum).png")
+            let storageRef = Storage.storage().reference().child("userA\(dateTimeKey)\(randomNum).png")
+            if let uploadData = UIImagePNGRepresentation(self.delegate.incident.picture!) {
+                storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                    if error != nil {
+                        print("ERROR IN UPLOADING IMAGE TO STORAGE")
+                        self.uploadIncident(picUrl: nil)
+                    }
+                    else {
+                        self.uploadIncident(picUrl: (metadata?.downloadURL()?.absoluteString)!)
+                    }
+                }
+            }
         }
         if !integrated && missing == Incident.MISS_PICTURE {
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.red]
@@ -63,8 +67,8 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
             print("Unexpected part missing for incident: \(missing)")
         }
     }
-
-
+    
+    
     @IBAction func camBtnPressed(_ sender: UIButton) {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -89,10 +93,46 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
     }
     
     
-    // clear out user input image 
+    // clear out user input image
     func clear() {
         self.delegate.clear()
         self.imageView.image = nil
     }
-
+    
+    // upload incident to firebase
+    func uploadIncident(picUrl: String?) {
+        
+        if picUrl != nil {
+            self.delegate.incident.pictureUrl = picUrl
+        }
+        
+        let userId = "TMP user ID"
+        
+        //get a inciddent key with location
+        let incidentKey = Utilities.convertCoordinateToKey(coord: (self.delegate.incident.location?.coordinate)!)
+        //get a time key with incident datetime
+        let dateTimeKey = Utilities.dateCompToString(date: self.delegate.incident.dateTime)
+        
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("summay").setValue(self.delegate.incident.summary!)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("type").setValue(self.delegate.incident.type?.rawValue)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("datatime").setValue(Utilities.dateCompToString(date: self.delegate.incident.dateTime))
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("description").setValue(self.delegate.incident.description!)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("imageUrl").setValue(self.delegate.incident.pictureUrl)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("lat").setValue(self.delegate.incident.location?.coordinate?.latitude)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("long").setValue(self.delegate.incident.location?.coordinate?.longitude)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("addressName").setValue(self.delegate.incident.location?.name!)
+        
+        
+        //clear user input
+        self.clear()
+        
+        // go to map view
+        tabBarController?.selectedIndex = 0
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    
+    
+    
+    
 }

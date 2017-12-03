@@ -12,10 +12,11 @@ import MapKit
 // collection of functions for general purpose
 class Utilities {
     
-    // construct a key for the annotation which takes forms of "LA-latitude,LO-longitude"
+    // construct a key for the annotation which takes forms of "LA,latitude,LO,longitude"
     // this key is going to be used uniquely indentify the annotation
     public static func convertCoordinateToKey(coord: CLLocationCoordinate2D) -> String{
-        return "\(coord.latitude),\(coord.longitude)"
+        //return "\(coord.latitude),\(coord.longitude)"
+        return "LA,\(convertLongOrLat(l: String(coord.latitude))),LO,\(convertLongOrLat(l:String(coord.longitude)))"
     }
     
     
@@ -36,9 +37,14 @@ class Utilities {
     // get a readable text from DateComponent
     public static func dateCompToString(date: DateComponents?) -> String {
         if date != nil {
-            return "\(date!.hour!):\(date!.minute!) \(date!.year!)-\(date!.month!)-\(date!.day!)"
+            return "\(date!.year!)-\(date!.month!)-\(date!.day!)-\(date!.hour!):\(date!.minute!)"
         }
         return ""
     }
-
+    
+    // change the dot to "-"
+    public static func convertLongOrLat(l: String) ->String {
+        var chunks = l.components(separatedBy: ".")
+        return "\(chunks[0])-\(chunks[1])"
+    }
 }

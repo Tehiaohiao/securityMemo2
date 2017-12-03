@@ -37,8 +37,9 @@ class Incident {
     var Time: String? = nil
     var description: String? = nil
     var picture: UIImage? = nil
+    var pictureUrl: String! = "NONE"
     
-
+    
     
     // check if all propertities are presented
     public func check() -> (Bool, String) {
