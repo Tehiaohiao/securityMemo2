@@ -8,9 +8,14 @@
 
 import UIKit
 import Firebase
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    var incidents: [Incident] = []
+    var ref: DatabaseReference!
     var username:String = ""
     
     override func viewDidLoad() {
@@ -19,6 +24,11 @@ class AccountViewController: UIViewController {
         // Do any additional setup after loading the view.
         usernameLabel.text = username
         
+        ref = Database.database().reference()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        fetchUserIncidents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,11 +47,15 @@ class AccountViewController: UIViewController {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        print("user loged out")
+        print("user logged out")
         self.navigationController?.popViewController(animated: true)
         
     }
-
+    
+    func fetchUserIncidents() {
+    
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -51,5 +65,27 @@ class AccountViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // configure table view
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.incidents.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: Identifiers.MULTI_INCT_DETAIL_TV_CELL_ID, for: indexPath) as! IncidentDetailTableViewCell
+        cell.incident = self.incidents[indexPath.row]
+        return cell
+    }
+    
+    // enable row click for more detailed view
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.DETAIL_VC_ID) as! IncidentDetailViewController
+        detailVC.incident = self.incidents[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 
 }
