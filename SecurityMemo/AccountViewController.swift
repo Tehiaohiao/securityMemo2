@@ -52,6 +52,57 @@ class AccountViewController: UIViewController {
     }
     
     func fetchUserIncidents() {
+        //query specific
+        if Auth.auth().currentUser != nil {
+            // User is signed in.
+            // ...
+            ref.child("Incidents").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let dic = snapshot.value as? NSDictionary
+                for(k,v) in dic!{
+                    let tmp = v as?NSDictionary
+                    for(k, v) in tmp!{
+                        let info = v as?NSDictionary
+                        let datetime:String? = String(describing:info!["datatime"]!)
+                        let des:String? = String(describing:info!["description"]!)
+                        let img:String? = String(describing:info!["imageUrl"]!)
+                        let lat:String? = String(describing:info!["lat"]!)
+                        let long:String? = String(describing:info!["long"]!)
+                        let summary:String? = String(describing:info!["summay"]!)
+                        let type:String? = String(describing:info!["type"]!)
+                        let address:String? = String(describing:info!["addressName"]!)
+                        var i: Incident!
+                        i.Time = datetime
+                        i.description = des
+                        i.summary = summary
+                        var Coordinates = CLLocationCoordinate2D(latitude: Double(lat!) as!
+                            CLLocationDegrees, longitude: Double(long!) as! CLLocationDegrees)
+                        var loc = Location()
+                        loc.name = address
+                        loc.coordinate = Coordinates
+                        i.location = loc
+                        //i.picture = img
+                        
+                        let key = Utilities.convertCoordinateToKey(coord: i.location!.coordinate!)
+                        if MockDatabase.database[key] == nil {
+                            MockDatabase.database[key] = []
+                        }
+                        MockDatabase.database[key]?.append(i.makeCopy())
+                        
+                    }
+                }
+                
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        } else {
+            // No user is signed in.
+            // ...
+        }
+        
+
     
     }
     
