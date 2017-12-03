@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import MapKit
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -23,12 +23,16 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         // Do any additional setup after loading the view.
         usernameLabel.text = username
+        fetchUserIncidents()
         
         
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         usernameLabel.text = username
@@ -56,42 +60,41 @@ class AccountViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             // User is signed in.
             // ...
-            ref.child("Incidents").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("Incidents").child("TMP user ID").observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let dic = snapshot.value as? NSDictionary
                 for(k,v) in dic!{
                     let tmp = v as?NSDictionary
                     for(k, v) in tmp!{
                         let info = v as?NSDictionary
-                        let datetime:String? = String(describing:info!["datatime"]!)
-                        let des:String? = String(describing:info!["description"]!)
-                        let img:String? = String(describing:info!["imageUrl"]!)
-                        let lat:String? = String(describing:info!["lat"]!)
-                        let long:String? = String(describing:info!["long"]!)
-                        let summary:String? = String(describing:info!["summay"]!)
-                        let type:String? = String(describing:info!["type"]!)
-                        let address:String? = String(describing:info!["addressName"]!)
-                        var i: Incident!
-                        i.Time = datetime
-                        i.description = des
-                        i.summary = summary
-                        var Coordinates = CLLocationCoordinate2D(latitude: Double(lat!) as!
-                            CLLocationDegrees, longitude: Double(long!) as! CLLocationDegrees)
+                        let datetime:String = String(describing:info!["datatime"]!)
+                        let des:String = String(describing:info!["description"]!)
+                        let img:String = String(describing:info!["imageUrl"]!)
+                        let lat:String = String(describing:info!["lat"]!)
+                        let long:String = String(describing:info!["long"]!)
+                        let summary:String = String(describing:info!["summay"]!)
+                        let type:String = String(describing:info!["type"]!)
+                        let address:String = String(describing:info!["addressName"]!)
+                        var i: Incident = Incident()
+                        i.Time = String(describing:datetime)
+                        i.description = String(describing:des)
+                        i.summary = String(describing:summary)
+                        var Coordinates = CLLocationCoordinate2D(latitude: Double(lat) as!
+                            CLLocationDegrees, longitude: Double(long) as! CLLocationDegrees)
                         var loc = Location()
-                        loc.name = address
+                        loc.name = String(describing:address)
                         loc.coordinate = Coordinates
                         i.location = loc
-                        i.picture = nil
+                        //i.picture = img
                         self.incidents.append(i)
-//                        let key = Utilities.convertCoordinateToKey(coord: i.location!.coordinate!)
-//                        if MockDatabase.database[key] == nil {
-//                            MockDatabase.database[key] = []
-//                        }
-//                        MockDatabase.database[key]?.append(i.makeCopy())
                         
                     }
                 }
-                
+               print(self.incidents)
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+               
                 
                 // ...
             }) { (error) in
@@ -102,8 +105,6 @@ class AccountViewController: UIViewController {
             // ...
         }
         
-
-    
     }
     
     /*
