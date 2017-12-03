@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var phoneNumLabel: UILabel!
     @IBOutlet weak var phoneNumTF: UITextField!
     
@@ -28,16 +27,16 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        errorLabel.alpha = 0
         usernameTF.text = ""
         passwordTF.text = ""
+        phoneNumTF.text = ""
         showPhone()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        errorLabel.alpha = 0
         usernameTF.text = ""
         passwordTF.text = ""
+        phoneNumTF.text = ""
         showPhone()
     }
 
@@ -83,25 +82,17 @@ class LoginViewController: UIViewController {
             let loginVerified = verifyLogin(name: username, p: password)
             print(loginVerified)
             if loginVerified {
-                errorLabel.alpha = 0
                 let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
                 accountVC.username = username
                 self.navigationController?.pushViewController(accountVC, animated: true)
-            }
-            else {
-                errorLabel.alpha = 1
             }
         }
         else { // register
             let registerSuccess = createUser(name: username, p: password)
             if registerSuccess {
-                errorLabel.alpha = 0
                 let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
                 accountVC.username = username
                 self.navigationController?.pushViewController(accountVC, animated: true)
-            }
-            else {
-                errorLabel.alpha = 1
             }
         }
     }
