@@ -16,9 +16,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var phoneNumLabel: UILabel!
+    @IBOutlet weak var phoneNumTF: UITextField!
     
     var login = true // true when login, false when register
     var password:String = ""
+    var phoneNumber:String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +31,14 @@ class LoginViewController: UIViewController {
         errorLabel.alpha = 0
         usernameTF.text = ""
         passwordTF.text = ""
+        showPhone()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         errorLabel.alpha = 0
         usernameTF.text = ""
         passwordTF.text = ""
+        showPhone()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,14 +46,31 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showPhone() {
+        if login {
+            loginButton.setTitle("Login", for: .normal)
+            phoneNumTF.alpha = 0
+            phoneNumLabel.alpha = 0
+        }
+        else {
+            loginButton.setTitle("Register", for: .normal)
+            phoneNumTF.alpha = 1
+            phoneNumLabel.alpha = 1
+        }
+    }
+    
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             login = true
             loginButton.setTitle("Login", for: .normal)
+            phoneNumTF.alpha = 0
+            phoneNumLabel.alpha = 0
         }
         else {
             login = false
             loginButton.setTitle("Register", for: .normal)
+            phoneNumTF.alpha = 1
+            phoneNumLabel.alpha = 1
         }
     }
     
@@ -55,10 +78,8 @@ class LoginViewController: UIViewController {
     @IBAction func loginClicked(_ sender: UIButton) {
         username = usernameTF.text ?? ""
         password = passwordTF.text ?? ""
-        print(username)
-        print(password)
+        phoneNumber = phoneNumTF.text ?? ""
         if login {
-            
             let loginVerified = verifyLogin(name: username, p: password)
             print(loginVerified)
             if loginVerified {
@@ -86,6 +107,8 @@ class LoginViewController: UIViewController {
     }
     
     func verifyLogin(name: String, p: String) -> Bool {
+        print(name)
+        print(p)
         
         Auth.auth().signIn(withEmail: name, password: p) { (user, error) in}
     
@@ -106,6 +129,7 @@ class LoginViewController: UIViewController {
     }
     
     func createUser(name: String, p: String) -> Bool {
+        
         Auth.auth().createUser(withEmail: name, password: p) { (user, error) in}
         if Auth.auth().currentUser != nil {
             // User is signed in.
