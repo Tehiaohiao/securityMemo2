@@ -12,18 +12,16 @@ from tornado.httpserver import HTTPServer
 from Handlers import *
 
 #Tornado app configuration
-
+#part of the code is from my previous work at GlobalHack VI.
 
 
 def get_url_list():
-
-
     user_handler_url_set = [
         # create a new user #post
-        tornado.web.URLSpec(r"/create",UserHandler),
-        # change password
-        tornado.web.URLSpec(r"/password", UserHandler),
+        tornado.web.URLSpec(r"/text", MessageHandler),
     ]
+
+    return user_handler_url_set
 
 def get_settings():
 
@@ -40,9 +38,6 @@ def get_app():
 
     application = tornado.web.Application (
         url_list,
-        sqs = sqs,
-        ses = ses,
-        dynamo = dynamo,
         **settings
     )
 
@@ -75,8 +70,7 @@ def main():
         ioloop.start()
     except KeyboardInterrupt:
         stop_server(server)
-
-    logging.info('stopping server')
+        logging.info('stopping server')
 
 
 if __name__=='__main__':

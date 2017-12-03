@@ -1,7 +1,6 @@
 import tornado
 import json
 from tornado import gen
-from .User import *
 from functools import wraps
 import hashlib
 from tornado.escape import json_encode
