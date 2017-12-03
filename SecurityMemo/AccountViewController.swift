@@ -18,7 +18,7 @@ class AccountViewController: UIViewController {
     var incidents: [Incident] = []
     var ref: DatabaseReference!
     var username:String = ""
-    var ref: DatabaseReference!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
