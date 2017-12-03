@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import Firebase
 var username:String = ""
-
+var uid:String = ""
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTF: UITextField!
@@ -55,9 +55,12 @@ class LoginViewController: UIViewController {
     @IBAction func loginClicked(_ sender: UIButton) {
         username = usernameTF.text ?? ""
         password = passwordTF.text ?? ""
-        
+        print(username)
+        print(password)
         if login {
-            let loginVerified = verifyLogin(user: username, pass: password)
+            
+            let loginVerified = verifyLogin(name: username, p: password)
+            print(loginVerified)
             if loginVerified {
                 errorLabel.alpha = 0
                 let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
@@ -69,7 +72,7 @@ class LoginViewController: UIViewController {
             }
         }
         else { // register
-            let registerSuccess = createUser(user: username, pass: password)
+            let registerSuccess = createUser(name: username, p: password)
             if registerSuccess {
                 errorLabel.alpha = 0
                 let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
@@ -82,12 +85,42 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func verifyLogin(user: String, pass: String) -> Bool {
-        return true
+    func verifyLogin(name: String, p: String) -> Bool {
+        
+        Auth.auth().signIn(withEmail: name, password: p) { (user, error) in}
+    
+        if Auth.auth().currentUser != nil {
+            // User is signed in.
+            // ...
+            let user = Auth.auth().currentUser
+            if let user = user {
+                // The user's ID, unique to the Firebase project.
+                // Do NOT use this value to authenticate with your backend server,
+                // if you have one. Use getTokenWithCompletion:completion: instead.
+                uid = user.uid
+                username =  user.email!
+                return true;
+            }
+        }
+        return false
     }
     
-    func createUser(user: String, pass: String) -> Bool {
-        return true
+    func createUser(name: String, p: String) -> Bool {
+        Auth.auth().createUser(withEmail: name, password: p) { (user, error) in}
+        if Auth.auth().currentUser != nil {
+            // User is signed in.
+            // ...
+            let user = Auth.auth().currentUser
+            if let user = user {
+                // The user's ID, unique to the Firebase project.
+                // Do NOT use this value to authenticate with your backend server,
+                // if you have one. Use getTokenWithCompletion:completion: instead.
+                uid = user.uid
+                username =  user.email!
+                return true;
+            }
+        }
+        return false
     }
     
     
