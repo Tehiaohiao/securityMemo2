@@ -120,6 +120,7 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
         self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("imageUrl").setValue(self.delegate.incident.pictureUrl)
         self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("lat").setValue(self.delegate.incident.location?.coordinate?.latitude)
         self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("long").setValue(self.delegate.incident.location?.coordinate?.longitude)
+        self.databaseRef.child(userId).child(incidentKey).child(dateTimeKey).child("addressName").setValue(self.delegate.incident.location?.name!)
         
         
         //clear user input
