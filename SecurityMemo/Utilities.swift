@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 // collection of functions for general purpose
 class Utilities {
@@ -47,4 +48,22 @@ class Utilities {
         var chunks = l.components(separatedBy: ".")
         return "\(chunks[0])-\(chunks[1])"
     }
+    
+    // get UIImage from download url in firebase storage
+    public static func getImageFromUrl(url: String, completionHandler: @escaping (_ result: UIImage?) -> Void) {
+        let imageRef = Storage.storage().reference(forURL: url)
+        imageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if error != nil {
+                print("ERROR HAPPENED IN GETING IMAGE FROM URL")
+                completionHandler(nil)
+            }
+            else {
+                completionHandler(UIImage(data: data!))
+                
+            }
+        }
+    }
+    
+    
+    
 }
