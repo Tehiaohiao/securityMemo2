@@ -70,6 +70,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let tmp = v as?NSDictionary
                     for(k, v) in tmp!{
                         let info = v as?NSDictionary
+                        let img:String = String(describing:info!["imageUrl"]!)
                         var i = MockDatabase.constructIncidentFromDatabase(ict: info!)
                         let imageRef = Storage.storage().reference(forURL: img)
                         imageRef.getData(maxSize: 150 * 1024 * 1024) { (data, error) in
