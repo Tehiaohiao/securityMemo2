@@ -50,7 +50,7 @@ class Utilities {
     }
     
     
-    
+    // get incident type from its raw value
     public static func getIctTypeFromRaw(raw: String) -> Incident.IncidentType{
         switch raw {
         case Incident.IncidentType.Burglary.rawValue:
@@ -65,6 +65,21 @@ class Utilities {
             return Incident.IncidentType.Others
         }
     }
+    
+    
+    // get a date from string format
+    public static func getDateFromStr(dateStr: String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm"
+        return dateFormatter.date(from: dateStr)!
+        
+    }
+    
+    // check if is between range
+    public static func isBwtRange(start: Date, end: Date, target: Date) -> Bool {
+        return (start ... end).contains(target)
+    }
+    
     
     
 }

@@ -9,6 +9,13 @@
 import Foundation
 import Firebase
 import MapKit
+
+var Filterstart:String? = nil
+var Filterend:String?=nil
+var Filtertype:Incident.IncidentType? = nil
+
+
+
 class MockDatabase {
     
     
@@ -20,6 +27,7 @@ class MockDatabase {
     public static func fillDatabase(mapVC: IncidentMapViewController) {
         // clear current database
         MockDatabase.database.removeAll()
+        
         
         // fetch incident from database
         let databaseRef = Database.database().reference()
@@ -35,7 +43,14 @@ class MockDatabase {
                     for (_, ict) in (timeDic as? NSDictionary)! {
                         let ictDic = ict as! NSDictionary
                         let incident = constructIncidentFromDatabase(ict: ictDic)
-                        let url = ictDic["imageUrl"] as! String                        
+                        if Filtertype != nil && incident.type != Filtertype {
+                            return
+                        }
+                        if Filterstart != nil && !Utilities.isBwtRange(start: Utilities.getDateFromStr(dateStr: Filterstart!), end: Utilities.getDateFromStr(dateStr: Filterend!), target: (incident.dateTime?.date!)!) {
+                            return
+                        }
+                        
+                        let url = ictDic["imageUrl"] as! String
                         let imageRef = Storage.storage().reference(forURL: url)
                         imageRef.getData(maxSize: 150 * 1024 * 1024) { (data, error) in
                             if error != nil {

@@ -74,6 +74,8 @@ class SettingsViewController: UIViewController {
             
             
         }
+        
+        
     }
     
     
@@ -105,8 +107,9 @@ class SettingsViewController: UIViewController {
             self.ref.child("users").child(uid).child("type").setValue(incidentType.rawValue)
             self.ref.child("users").child(uid).child("start").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: startDate)))
             self.ref.child("users").child(uid).child("end").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: endDate)))
-            
+            SettingsViewController.fetchSettings()
         }
+        
     }
     
     @IBAction func startDateChanged(_ sender: UIDatePicker) {
@@ -117,7 +120,7 @@ class SettingsViewController: UIViewController {
             self.ref.child("users").child(uid).child("type").setValue(incidentType.rawValue)
             self.ref.child("users").child(uid).child("start").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: startDate)))
             self.ref.child("users").child(uid).child("end").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: endDate)))
-            
+            SettingsViewController.fetchSettings()
         }
     }
     
@@ -130,7 +133,7 @@ class SettingsViewController: UIViewController {
             self.ref.child("users").child(uid).child("type").setValue(incidentType.rawValue)
             self.ref.child("users").child(uid).child("start").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: startDate)))
             self.ref.child("users").child(uid).child("end").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: endDate)))
-            
+            SettingsViewController.fetchSettings()
         }
         
     }
@@ -151,5 +154,18 @@ class SettingsViewController: UIViewController {
         return false
     }
     
+    
+    public static func fetchSettings() {
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            
+            let dic = snapshot.value as? NSDictionary
+            Filterend = dic!["end"] as! String
+            Filterstart = dic!["start"] as! String
+            Filtertype = Utilities.getIctTypeFromRaw(raw: dic!["type"] as! String)
+        }) { (error) in
+            print(error.localizedDescription)
+    }
+    }
     
 }
