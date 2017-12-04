@@ -81,27 +81,14 @@ class LoginViewController: UIViewController {
         password = passwordTF.text ?? ""
         phoneNumber = phoneNumTF.text ?? ""
         if login {
-            let loginVerified = verifyLogin(name: username, p: password)
-            print(loginVerified)
-            if loginVerified {
-                let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
-                accountVC.username = username
-                self.navigationController?.pushViewController(accountVC, animated: true)
-            }
+            verifyLogin(name: username, p: password)
         }
         else { // register
-            let registerSuccess = createUser(name: username, p: password)
-            if registerSuccess {
-                let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
-                accountVC.username = username
-                self.navigationController?.pushViewController(accountVC, animated: true)
-            }
+            createUser(name: username, p: password)
         }
     }
     
     func verifyLogin(name: String, p: String) -> Bool {
-        print(name)
-        print(p)
         
         Auth.auth().signIn(withEmail: name, password: p) { (user, error) in}
     
@@ -115,7 +102,10 @@ class LoginViewController: UIViewController {
                 // if you have one. Use getTokenWithCompletion:completion: instead.
                 uid = user.uid
                 username =  user.email!
-                return true;
+                
+                let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
+                accountVC.username = username
+                self.navigationController?.pushViewController(accountVC, animated: true)
             }
         }
         return false
@@ -134,7 +124,9 @@ class LoginViewController: UIViewController {
                 // if you have one. Use getTokenWithCompletion:completion: instead.
                 uid = user.uid
                 username =  user.email!
-                return true;
+                let accountVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.ACCT_VC_ID) as! AccountViewController
+                accountVC.username = username
+                self.navigationController?.pushViewController(accountVC, animated: true)
             }
         }
         return false
