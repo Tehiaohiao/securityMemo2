@@ -12,8 +12,6 @@ class SettingsViewController: UIViewController {
     
     
     @IBOutlet weak var receiveTextSwitch: UISwitch!
-    @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var incidentTypeControl: UISegmentedControl!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -61,27 +59,7 @@ class SettingsViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
-    @IBAction func newLocationEntered(_ sender: Any) {
-        
-        locationString = locationTextField.text ?? ""
-        if checkuser(){
-            self.ref.child("users").child(uid).child("username").setValue(username)
-            self.ref.child("users").child(uid).child("loc").setValue(locationString)
-            self.ref.child("users").child(uid).child("type").setValue(incidentType.rawValue)
-            self.ref.child("users").child(uid).child("start").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: startDate)))
-            self.ref.child("users").child(uid).child("end").setValue(Utilities.dateCompToString(date: Calendar.current.dateComponents([.hour, .minute, .day, .month,.year], from: endDate)))
-            
-            
-        }
-        
-        
-    }
-    
-    
-    @IBAction func radiusChanged(_ sender: Any) {
-        radius = radiusSlider.value
-    }
+
     
     @IBAction func incidentTypeChanged(_ sender: Any) {
         switch incidentTypeControl.selectedSegmentIndex {
