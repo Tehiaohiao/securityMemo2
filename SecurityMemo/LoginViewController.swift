@@ -38,6 +38,8 @@ class LoginViewController: UIViewController {
         passwordTF.text = ""
         phoneNumTF.text = ""
         showPhone()
+        username = ""
+        uid = ""
     }
 
     override func didReceiveMemoryWarning() {
