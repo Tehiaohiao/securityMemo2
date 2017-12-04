@@ -105,7 +105,7 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
             self.delegate.incident.pictureUrl = picUrl
         }
         
-        let userId = "TMP user ID"
+        let userId = uid
         
         //get a inciddent key with location
         let incidentKey = Utilities.convertCoordinateToKey(coord: (self.delegate.incident.location?.coordinate)!)
