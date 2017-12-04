@@ -25,13 +25,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         ref = Database.database().reference()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // Do any additional setup after loading the view.
-        usernameLabel.text = username
-        incidents = []
-        fetchUserIncidents()
-        
-        
+    
     }
     
     
@@ -60,11 +54,14 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func fetchUserIncidents() {
         //query specific
+        
         if Auth.auth().currentUser != nil {
             // User is signed in.
             // ...
+            self.incidents.removeAll()
             ref.child("Incidents").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
+                
                 let dic = snapshot.value as? NSDictionary
                 if dic == nil {
                     return
@@ -73,25 +70,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let tmp = v as?NSDictionary
                     for(k, v) in tmp!{
                         let info = v as?NSDictionary
-                        let datetime:String = String(describing:info!["datatime"]!)
-                        let des:String = String(describing:info!["description"]!)
-                        let img:String = String(describing:info!["imageUrl"]!)
-                        let lat:String = String(describing:info!["lat"]!)
-                        let long:String = String(describing:info!["long"]!)
-                        let summary:String = String(describing:info!["summay"]!)
-                        let type:String = String(describing:info!["type"]!)
-                        let address:String = String(describing:info!["addressName"]!)
-                        var i: Incident = Incident()
-                        i.Time = String(describing:datetime)
-                        i.description = String(describing:des)
-                        i.summary = String(describing:summary)
-                        
-                        var Coordinates = CLLocationCoordinate2D(latitude: Double(lat) as!
-                            CLLocationDegrees, longitude: Double(long) as! CLLocationDegrees)
-                        var loc = Location()
-                        loc.name = String(describing:address)
-                        loc.coordinate = Coordinates
-                        i.location = loc
+                        var i = MockDatabase.constructIncidentFromDatabase(ict: info!)
                         let imageRef = Storage.storage().reference(forURL: img)
                         imageRef.getData(maxSize: 150 * 1024 * 1024) { (data, error) in
                             if error != nil {
@@ -103,7 +82,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 i.picture = UIImage(data: data!)!
                                 
                             }
-                            self.incidents.append(i.makeCopy())
+                            self.incidents.append(i)
                             self.tableView.reloadData()
                             
                         }
