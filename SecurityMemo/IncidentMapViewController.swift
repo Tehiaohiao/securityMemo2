@@ -37,22 +37,13 @@ class IncidentMapViewController: UIViewController, UISearchBarDelegate, MKMapVie
             self.mapView.setRegion(region, animated: true)
         }
         
-        // add annotation for each incident
-        // NOTE: using mock database for now
-        for key in MockDatabase.database.keys {
-            self.mapView.addAnnotation(IncidentPinAnnotation(key: key))
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if self.mapView != nil {
             self.mapView.removeAnnotations(self.mapView.annotations)
             // add annotation for each incident
-            // NOTE: using mock database for now
-            for key in MockDatabase.database.keys {
-                self.mapView.addAnnotation(IncidentPinAnnotation(key: key))
-            }
+            MockDatabase.fillDatabase(mapVC: self)
         }
         
     }

@@ -30,7 +30,7 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
         if integrated {
             
             
-            
+            /*
             // Mocking database  ------------------------------------------------
             // upload to database
             let key = Utilities.convertCoordinateToKey(coord: self.delegate.incident.location!.coordinate!)
@@ -39,10 +39,9 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
             }
             MockDatabase.database[key]?.append(self.delegate.incident.makeCopy())
             
+            */
             
             // create a storage reference and call upload
-            //get a inciddent key with location
-            
             //get a time key with incident datetime
             let dateTimeKey = Utilities.dateCompToString(date: self.delegate.incident.dateTime)
             let randomNum = arc4random()
@@ -129,6 +128,7 @@ class IncidentReportPictureViewController: UIViewController, UIImagePickerContro
         // go to map view
         tabBarController?.selectedIndex = 0
         _ = navigationController?.popViewController(animated: true)
+        
     }
     
     

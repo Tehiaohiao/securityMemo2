@@ -49,21 +49,22 @@ class Utilities {
         return "\(chunks[0])-\(chunks[1])"
     }
     
-    // get UIImage from download url in firebase storage
-    public static func getImageFromUrl(url: String, completionHandler: @escaping (_ result: UIImage?) -> Void) {
-        let imageRef = Storage.storage().reference(forURL: url)
-        imageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
-            if error != nil {
-                print("ERROR HAPPENED IN GETING IMAGE FROM URL")
-                completionHandler(nil)
-            }
-            else {
-                completionHandler(UIImage(data: data!))
-                
-            }
+    
+    
+    public static func getIctTypeFromRaw(raw: String) -> Incident.IncidentType{
+        switch raw {
+        case Incident.IncidentType.Burglary.rawValue:
+            return Incident.IncidentType.Burglary
+        case Incident.IncidentType.Robbery.rawValue:
+            return Incident.IncidentType.Robbery
+        case Incident.IncidentType.Theft.rawValue:
+            return Incident.IncidentType.Theft
+        case Incident.IncidentType.Violent.rawValue:
+            return Incident.IncidentType.Violent
+        default:
+            return Incident.IncidentType.Others
         }
     }
-    
     
     
 }
