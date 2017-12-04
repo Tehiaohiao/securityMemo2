@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 // collection of functions for general purpose
 class Utilities {
@@ -47,4 +48,23 @@ class Utilities {
         var chunks = l.components(separatedBy: ".")
         return "\(chunks[0])-\(chunks[1])"
     }
+    
+    
+    
+    public static func getIctTypeFromRaw(raw: String) -> Incident.IncidentType{
+        switch raw {
+        case Incident.IncidentType.Burglary.rawValue:
+            return Incident.IncidentType.Burglary
+        case Incident.IncidentType.Robbery.rawValue:
+            return Incident.IncidentType.Robbery
+        case Incident.IncidentType.Theft.rawValue:
+            return Incident.IncidentType.Theft
+        case Incident.IncidentType.Violent.rawValue:
+            return Incident.IncidentType.Violent
+        default:
+            return Incident.IncidentType.Others
+        }
+    }
+    
+    
 }
