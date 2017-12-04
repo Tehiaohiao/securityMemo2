@@ -37,7 +37,7 @@ class MockDatabase {
                         let incident = constructIncidentFromDatabase(ict: ictDic)
                         let url = ictDic["imageUrl"] as! String                        
                         let imageRef = Storage.storage().reference(forURL: url)
-                        imageRef.getData(maxSize: 15 * 1024 * 1024) { (data, error) in
+                        imageRef.getData(maxSize: 150 * 1024 * 1024) { (data, error) in
                             if error != nil {
                                 print("ERROR HAPPENED IN GETING IMAGE FROM URL")
                                 print(error.debugDescription)

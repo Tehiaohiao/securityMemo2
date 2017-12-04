@@ -28,6 +28,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // Do any additional setup after loading the view.
         usernameLabel.text = username
+        incidents = []
         fetchUserIncidents()
         
         
@@ -36,6 +37,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         usernameLabel.text = username
+        incidents = []
+        fetchUserIncidents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,6 +66,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             ref.child("Incidents").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let dic = snapshot.value as? NSDictionary
+                if dic == nil {
+                    return
+                }
                 for(k,v) in dic!{
                     let tmp = v as?NSDictionary
                     for(k, v) in tmp!{
@@ -87,7 +93,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                         loc.coordinate = Coordinates
                         i.location = loc
                         let imageRef = Storage.storage().reference(forURL: img)
-                        imageRef.getData(maxSize: 15 * 1024 * 1024) { (data, error) in
+                        imageRef.getData(maxSize: 150 * 1024 * 1024) { (data, error) in
                             if error != nil {
                                 print("ERROR HAPPENED IN GETING IMAGE FROM URL")
                                 print(error.debugDescription)

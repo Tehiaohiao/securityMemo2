@@ -24,7 +24,7 @@ class IncidentDetailViewController: UIViewController {
     private func prepareDetailInfo() -> String {
         return "Location:  \n" +
                 "   \(self.incident.location!.name!) \n" +
-                "Summay: \n" +
+                "Summary: \n" +
                 "   \(self.incident.summary!) \n" +
                 "Type: \(self.incident.type!.rawValue) \n" +
                 "Time: \(Utilities.dateCompToString(date: self.incident.dateTime)) \n" +
