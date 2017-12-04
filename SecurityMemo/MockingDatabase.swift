@@ -40,14 +40,20 @@ class MockDatabase {
                         MockDatabase.database[locKey as! String] = []
                     }
                     
-                    for (_, ict) in (timeDic as? NSDictionary)! {
+                    for (timeKey, ict) in (timeDic as? NSDictionary)! {
                         let ictDic = ict as! NSDictionary
                         let incident = constructIncidentFromDatabase(ict: ictDic)
                         if Filtertype != nil && incident.type != Filtertype {
-                            return
+                            continue
                         }
-                        if Filterstart != nil && !Utilities.isBwtRange(start: Utilities.getDateFromStr(dateStr: Filterstart!), end: Utilities.getDateFromStr(dateStr: Filterend!), target: (incident.dateTime?.date!)!) {
-                            return
+                        if Filterstart != nil && Filterend != nil {
+                            var start: Date = Utilities.getDateFromStr(dateStr: Filterstart!)
+                            var end: Date = Utilities.getDateFromStr(dateStr: Filterend!)
+                            var myDate: Date = Utilities.getDateFromStr(dateStr: timeKey as! String)
+                            var isBtw = Utilities.isBwtRange(start: start, end: end, target: myDate)
+                            if !isBtw {
+                                continue
+                            }
                         }
                         
                         let url = ictDic["imageUrl"] as! String
