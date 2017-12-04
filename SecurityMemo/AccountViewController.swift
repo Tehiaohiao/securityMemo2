@@ -79,20 +79,32 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                         i.Time = String(describing:datetime)
                         i.description = String(describing:des)
                         i.summary = String(describing:summary)
+                        
                         var Coordinates = CLLocationCoordinate2D(latitude: Double(lat) as!
                             CLLocationDegrees, longitude: Double(long) as! CLLocationDegrees)
                         var loc = Location()
                         loc.name = String(describing:address)
                         loc.coordinate = Coordinates
                         i.location = loc
-                        //i.picture = img
-                        self.incidents.append(i)
+                        let imageRef = Storage.storage().reference(forURL: img)
+                        imageRef.getData(maxSize: 15 * 1024 * 1024) { (data, error) in
+                            if error != nil {
+                                print("ERROR HAPPENED IN GETING IMAGE FROM URL")
+                                print(error.debugDescription)
+                                i.picture = UIImage(named: "pictureHolding")
+                            }
+                            else {
+                                i.picture = UIImage(data: data!)!
+                                
+                            }
+                            self.incidents.append(i.makeCopy())
+                            self.tableView.reloadData()
+                            
+                        }
+                        
+                        
                         
                     }
-                }
-               print(self.incidents)
-                DispatchQueue.main.async{
-                    self.tableView.reloadData()
                 }
                
                 
@@ -134,8 +146,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // enable row click for more detailed view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.DETAIL_VC_ID) as! IncidentDetailViewController
         detailVC.incident = self.incidents[indexPath.row]
+        print(self.incidents[indexPath.row].picture)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 
