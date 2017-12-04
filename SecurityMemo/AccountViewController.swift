@@ -60,7 +60,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         if Auth.auth().currentUser != nil {
             // User is signed in.
             // ...
-            ref.child("Incidents").child("TMP user ID").observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("Incidents").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let dic = snapshot.value as? NSDictionary
                 for(k,v) in dic!{
