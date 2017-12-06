@@ -52,7 +52,7 @@ class MockDatabase {
                             var myDate: Date = Utilities.getDateFromStr(dateStr: timeKey as! String)
                             var isBtw = Utilities.isBwtRange(start: start, end: end, target: myDate)
                             if !isBtw {
-                                continue
+                                continue    
                             }
                         }
                         
