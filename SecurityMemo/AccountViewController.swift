@@ -30,7 +30,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func viewWillAppear(_ animated: Bool) {
-        usernameLabel.text = username
+        usernameLabel.text = Auth.auth().currentUser?.email!
         incidents = []
         fetchUserIncidents()
     }
