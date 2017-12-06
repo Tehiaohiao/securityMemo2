@@ -42,7 +42,9 @@ class IncidentMapViewController: UIViewController, UISearchBarDelegate, MKMapVie
     override func viewWillAppear(_ animated: Bool) {
         if self.mapView != nil {
             self.mapView.removeAnnotations(self.mapView.annotations)
+            
             // add annotation for each incident
+            
             MockDatabase.fillDatabase(mapVC: self)
         }
         

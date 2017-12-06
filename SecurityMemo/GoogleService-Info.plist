@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>969180495370-8vp70ul7ud58jpckq2en2rmjm3le0qdf.apps.googleusercontent.com</string>
+	<string>125193846302-vqihdkpgtd91j3jb0o3dcj4asmekvak0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.969180495370-8vp70ul7ud58jpckq2en2rmjm3le0qdf</string>
+	<string>com.googleusercontent.apps.125193846302-vqihdkpgtd91j3jb0o3dcj4asmekvak0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyClH9_KX2rgQs1gyjgjyAfAVCcF4iW_37Y</string>
+	<string>AIzaSyAGdCQDwSuhbzLJSv4047bVPvlbP80Jogg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>969180495370</string>
+	<string>125193846302</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.CSE438.SecurityMemo</string>
 	<key>PROJECT_ID</key>
-	<string>pro-15dff</string>
+	<string>iosfinal-854e9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pro-15dff.appspot.com</string>
+	<string>iosfinal-854e9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:969180495370:ios:fd58325bfb5f947d</string>
+	<string>1:125193846302:ios:fd58325bfb5f947d</string>
 	<key>DATABASE_URL</key>
-	<string>https://pro-15dff.firebaseio.com</string>
+	<string>https://iosfinal-854e9.firebaseio.com</string>
 </dict>
 </plist>

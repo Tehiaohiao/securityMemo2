@@ -12,6 +12,7 @@
 		01425A6B1FB8A7DC00A43FD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01425A6A1FB8A7DC00A43FD1 /* Assets.xcassets */; };
 		01425A6E1FB8A7DC00A43FD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01425A6C1FB8A7DC00A43FD1 /* LaunchScreen.storyboard */; };
 		01425A781FB8B5DA00A43FD1 /* IncidentReportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01425A771FB8B5DA00A43FD1 /* IncidentReportInfoViewController.swift */; };
+		018A41321FD7C608009FB0E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018A41311FD7C608009FB0E1 /* GoogleService-Info.plist */; };
 		01989FCE1FBDF72000331430 /* IncidentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01989FCD1FBDF72000331430 /* IncidentDetailViewController.swift */; };
 		01989FD01FBE6C8D00331430 /* IncidentDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01989FCF1FBE6C8D00331430 /* IncidentDetailTableViewCell.swift */; };
 		01989FD21FBE6EF400331430 /* MultiIncidentsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01989FD11FBE6EF400331430 /* MultiIncidentsDetailsViewController.swift */; };
@@ -21,7 +22,6 @@
 		01BB597E1FBB8ADE004C51C8 /* IncidentReportPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB597D1FBB8ADE004C51C8 /* IncidentReportPictureViewController.swift */; };
 		01D07DDB1FBBF2220094C8E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D07DDA1FBBF2220094C8E6 /* LocationManager.swift */; };
 		01D07DDE1FBBF32C0094C8E6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D07DDD1FBBF32C0094C8E6 /* CoreLocation.framework */; };
-		01E0272A1FD45CFE008DBDF1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01E027291FD45CFE008DBDF1 /* GoogleService-Info.plist */; };
 		01E0272C1FD4605C008DBDF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E0272B1FD4605C008DBDF1 /* Main.storyboard */; };
 		01E0272E1FD46086008DBDF1 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0272D1FD46086008DBDF1 /* AccountViewController.swift */; };
 		01E027301FD460A2008DBDF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0272F1FD460A2008DBDF1 /* LoginViewController.swift */; };
@@ -39,6 +39,7 @@
 		01425A6D1FB8A7DC00A43FD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01425A6F1FB8A7DC00A43FD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01425A771FB8B5DA00A43FD1 /* IncidentReportInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncidentReportInfoViewController.swift; sourceTree = "<group>"; };
+		018A41311FD7C608009FB0E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		01989FCD1FBDF72000331430 /* IncidentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncidentDetailViewController.swift; sourceTree = "<group>"; };
 		01989FCF1FBE6C8D00331430 /* IncidentDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncidentDetailTableViewCell.swift; sourceTree = "<group>"; };
 		01989FD11FBE6EF400331430 /* MultiIncidentsDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiIncidentsDetailsViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +49,6 @@
 		01BB597D1FBB8ADE004C51C8 /* IncidentReportPictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncidentReportPictureViewController.swift; sourceTree = "<group>"; };
 		01D07DDA1FBBF2220094C8E6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01D07DDD1FBBF32C0094C8E6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		01E027291FD45CFE008DBDF1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		01E0272B1FD4605C008DBDF1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		01E0272D1FD46086008DBDF1 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		01E0272F1FD460A2008DBDF1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		01425A621FB8A7DC00A43FD1 /* SecurityMemo */ = {
 			isa = PBXGroup;
 			children = (
-				01E027291FD45CFE008DBDF1 /* GoogleService-Info.plist */,
+				018A41311FD7C608009FB0E1 /* GoogleService-Info.plist */,
 				01425A6A1FB8A7DC00A43FD1 /* Assets.xcassets */,
 				01425A631FB8A7DC00A43FD1 /* AppDelegate.swift */,
 				01425A6C1FB8A7DC00A43FD1 /* LaunchScreen.storyboard */,
@@ -238,7 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01425A6E1FB8A7DC00A43FD1 /* LaunchScreen.storyboard in Resources */,
-				01E0272A1FD45CFE008DBDF1 /* GoogleService-Info.plist in Resources */,
+				018A41321FD7C608009FB0E1 /* GoogleService-Info.plist in Resources */,
 				01425A6B1FB8A7DC00A43FD1 /* Assets.xcassets in Resources */,
 				01E0272C1FD4605C008DBDF1 /* Main.storyboard in Resources */,
 			);

@@ -31,7 +31,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         usernameLabel.text = Auth.auth().currentUser?.email!
-        incidents = []
+        self.incidents = []
+        self.tableView.reloadData()
         fetchUserIncidents()
     }
 
@@ -85,15 +86,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                             self.incidents.append(i)
                             self.tableView.reloadData()
-                            
                         }
-                        
-                        
-                        
                     }
                 }
                
-                
                 // ...
             }) { (error) in
                 print(error.localizedDescription)
@@ -126,6 +122,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: Identifiers.MULTI_INCT_DETAIL_TV_CELL_ID, for: indexPath) as! IncidentDetailTableViewCell
+        
+        if self.incidents.count <= 0 {
+            return cell
+        }
+        
         cell.incident = self.incidents[indexPath.row]
         return cell
     }
@@ -134,8 +135,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.DETAIL_VC_ID) as! IncidentDetailViewController
-        detailVC.incident = self.incidents[indexPath.row]
-        print(self.incidents[indexPath.row].picture)
+            detailVC.incident = self.incidents[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 

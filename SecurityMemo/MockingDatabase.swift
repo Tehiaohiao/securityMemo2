@@ -25,9 +25,12 @@ class MockDatabase {
     
     // function fetch data from firebase and populate the mapveiw
     public static func fillDatabase(mapVC: IncidentMapViewController) {
+        
+        //start activity
+        mapVC.activityIndicator.startAnimating()
+        
         // clear current database
         MockDatabase.database.removeAll()
-        
         
         // fetch incident from database
         let databaseRef = Database.database().reference()
@@ -47,10 +50,10 @@ class MockDatabase {
                             continue
                         }
                         if Filterstart != nil && Filterend != nil {
-                            var start: Date = Utilities.getDateFromStr(dateStr: Filterstart!)
-                            var end: Date = Utilities.getDateFromStr(dateStr: Filterend!)
-                            var myDate: Date = Utilities.getDateFromStr(dateStr: timeKey as! String)
-                            var isBtw = Utilities.isBwtRange(start: start, end: end, target: myDate)
+                            let start: Date = Utilities.getDateFromStr(dateStr: Filterstart!)
+                            let end: Date = Utilities.getDateFromStr(dateStr: Filterend!)
+                            let myDate: Date = Utilities.getDateFromStr(dateStr: timeKey as! String)
+                            let isBtw = Utilities.isBwtRange(start: start, end: end, target: myDate)
                             if !isBtw {
                                 continue    
                             }
@@ -74,6 +77,7 @@ class MockDatabase {
                     }
                 }
             }
+            mapVC.activityIndicator.stopAnimating()
         })
     }
     
